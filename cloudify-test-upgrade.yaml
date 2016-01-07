@@ -39,7 +39,7 @@ node_templates:
     relationships:
       - type: cloudify.relationships.contained_in
         target: host
-      -type: client_connected_to_nginx
+      - type: client_connected_to_nginx
         target: nginx
 
 
