@@ -1,0 +1,30 @@
+node_types:
+
+  simple.nodes.apache:
+    derived_from: cloudify.nodes.ApplicationServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/apache/install.sh
+
+  simple.nodes.client:
+    derived_from: cloudify.nodes.ApplicationModule
+    instances:
+      deploy: 2
+
+relationships:
+  client_connected_to_apache:
+    derived_from: cloudify.relationships.connected_to
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        establish:
+          implementation: scripts/test.py
+          inputs:
+            invocation:
+              default:
+                function: add_backend
+        unlink:
+          implementation: scripts/test.py
+          inputs:
+            invocation:
+              default:
+                function: remove_backend

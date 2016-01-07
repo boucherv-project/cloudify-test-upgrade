@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <script src="jquery.js"></script>
+    <h2>Lecture et parsing du fichier employes.json</h2>
+    <button id="lecture">Lancer la lecture</button>
+    <div id="zone"></div>
+    <script>
+      $(function() {
+        $('#lecture').on('click', function(){
+          $.getJSON('data.json', {}, function(data){
+            for (var i = 0; i < data['client'].length; i++) {
+               $('#zone').append('Server name : ' + data['client'][i].nom + '<br>');                 
+            };
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
