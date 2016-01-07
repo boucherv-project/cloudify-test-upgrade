@@ -1,5 +1,6 @@
 import json
 from cloudify import ctx
+from cloudify.state import ctx_parameters as inputs
 
 def add_backend(data_path='/var/www/data.json'):
     with open(data_path) as data_file:
