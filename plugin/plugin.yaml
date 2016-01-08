@@ -1,7 +1,7 @@
 plugins:
   update-workflow:
     executor: central_deployment_agent
-    source: http://github.com/boucherv/cloudify-test-upgrade/plugin.zip
+    source: http://github.com/boucherv/cloudify-test-upgrade/master/plugin.zip
 
 workflows:
   update-app:
