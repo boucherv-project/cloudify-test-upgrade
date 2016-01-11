@@ -28,6 +28,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
 
                     forkjoin_tasks_unlink = []
                     for relationship in instance.relationships:
+                        instance.send_event(relationship)
                         if relationship.type == 'client_connected_to_nginx':
                             operation_unlink = 'cloudify.interfaces.relationship_lifecycle.unlink'
                             forkjoin_tasks_unlink.append(relationship.execute_source_operation(operation_unlink))
