@@ -3,23 +3,23 @@ from cloudify.workflows import ctx
 from cloudify.workflows.tasks_graph import forkjoin
 
 @workflow
-def run_operation(operation, nodes_update, operation_kwargs, **kwargs):
+def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
     graph = ctx.graph_mode()
 
     send_event_starting_tasks = {}
     send_event_done_tasks = {}
 
-    for node_update in nodes_update:
+    for node_type_update in nodes_type_update:
         for node in ctx.nodes:
-            if node.name == node_update:
+            if node.type == node_type_update:
                 for instance in node.instances:
                     send_event_starting_tasks[instance.id] = instance.send_event('Starting to run operation')
                     send_event_done_tasks[instance.id] = instance.send_event('Done running operation')
 
 
-    for node_update in nodes_update:
+    for node_type_update in nodes_type_update:
         for node in ctx.nodes:
-            if node.name == node_update:
+            if node.type == node_type_update:
                 for instance in node.instances:
 
                     sequence = graph.sequence()

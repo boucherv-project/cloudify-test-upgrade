@@ -9,10 +9,10 @@ workflows:
     parameters:
       operation:
         description: the operation to execute
-      nodes_update:
+      nodes_type_update:
         description: the base type for filtering nodes
         default:
-          - client 
+          - simple.nodes.client
       operation_kwargs:
         description: the operation kwargs
         default: {}
