@@ -9,6 +9,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
 
     send_event_starting_tasks = {}
     send_event_done_tasks = {}
+    run_it = False
 
     for node_type_update in nodes_type_update:
         for node in ctx.nodes:
@@ -26,8 +27,10 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                     sequence = graph.sequence()
 
                     #operation_task = instance.execute_operation(operation, kwargs=operation_kwargs)
-                    with open("file_out.txt", "w") as f:
-                        pprint.pprint(instance.relationships, f)
+                    if not run_it:
+                        with open("/file_out.txt", "w") as f:
+                            pprint.pprint(instance.relationships, f)
+                        run_it = True
 
                     forkjoin_tasks_unlink = []
                     for relationship in instance.relationships:
