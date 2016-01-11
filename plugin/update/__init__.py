@@ -1,6 +1,7 @@
 from cloudify.decorators import workflow
 from cloudify.workflows import ctx
 from cloudify.workflows.tasks_graph import forkjoin
+import pprint
 
 @workflow
 def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
@@ -25,6 +26,8 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                     sequence = graph.sequence()
 
                     #operation_task = instance.execute_operation(operation, kwargs=operation_kwargs)
+                    with open("file_out.txt", "w") as f:
+                        pprint.pprint(instance.relationships, f)
 
                     forkjoin_tasks_unlink = []
                     for relationship in instance.relationships:
