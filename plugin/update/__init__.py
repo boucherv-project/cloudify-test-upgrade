@@ -33,7 +33,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                     for relationship in instance.relationships:
                         if not run_it:
                             with open("/file_out.txt", "w") as f:
-                                pprint.pprint(relationship, f)
+                                pprint.pprint(relationship.relationship, f)
                             run_it = True
                         if relationship.name == 'client_connected_to_nginx':
                             operation_unlink = 'cloudify.interfaces.relationship_lifecycle.unlink'
