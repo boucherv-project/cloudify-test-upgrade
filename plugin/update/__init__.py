@@ -35,7 +35,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                             with open("/file_out.txt", "w") as f:
                                 pprint.pprint(relationship.relationship.target_id, f)
                             run_it = True
-                        if relationship.name == 'client_connected_to_nginx':
+                        if relationship.relationship.target_id == 'nginx':
                             operation_unlink = 'cloudify.interfaces.relationship_lifecycle.unlink'
                             forkjoin_tasks_unlink.append(relationship.execute_source_operation(operation_unlink))
                             forkjoin_tasks_unlink.append(relationship.execute_target_operation(operation_unlink))
@@ -43,7 +43,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
 
                     forkjoin_tasks_link = []
                     for relationship in instance.relationships:
-                        if relationship.name == 'client_connected_to_nginx':
+                        if relationship.relationship.target_id == 'nginx':
                             operation_link = 'cloudify.interfaces.relationship_lifecycle.establish'
                             forkjoin_tasks_link.append(relationship.execute_source_operation(operation_link))
                             forkjoin_tasks_link.append(relationship.execute_target_operation(operation_link))
