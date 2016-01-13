@@ -45,12 +45,12 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                             forkjoin_tasks_link.append(relationship.execute_target_operation(operation_link))
                     operation_task_link = forkjoin(*forkjoin_tasks_link)
 
-                sequence.add(
-                    send_event_starting_tasks[instance.id],
-                    operation_task_unlink,
-                    instance.send_event('Update task !!'),
-                    operation_task_link,
-                    send_event_done_tasks[instance.id])
+                    sequence.add(
+                        send_event_starting_tasks[instance.id],
+                        operation_task_unlink,
+                        instance.send_event('Update task !!'),
+                        operation_task_link,
+                        send_event_done_tasks[instance.id])
 
 
     return graph.execute()
