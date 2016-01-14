@@ -28,7 +28,6 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
 
                     #operation_task = instance.execute_operation(operation, kwargs=operation_kwargs)
 
-
                     forkjoin_tasks_unlink = []
                     for relationship in instance.relationships:
                         if relationship.relationship.target_id == 'nginx':
@@ -51,6 +50,16 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                         instance.send_event('Update task !!'),
                         operation_task_link,
                         send_event_done_tasks[instance.id])
+
+    for node in ctx.nodes:
+        for instance in node.instances:
+            for rel in instance.relationships:
+
+                instance_starting_task = send_event_starting_tasks.get(instance.id)
+                target_done_task = send_event_done_tasks.get(rel.target_id)
+
+                if instance_starting_task and target_done_task:
+                    graph.add_dependency(instance_starting_task, target_done_task)
 
 
     return graph.execute()
