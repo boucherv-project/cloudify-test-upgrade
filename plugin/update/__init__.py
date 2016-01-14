@@ -28,13 +28,8 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
 
                     #operation_task = instance.execute_operation(operation, kwargs=operation_kwargs)
 
-
                     forkjoin_tasks_unlink = []
                     for relationship in instance.relationships:
-                        if not run_it:
-                            with open("/file_out.txt", "w") as f:
-                                pprint.pprint(relationship.relationship.target_id, f)
-                            run_it = True
                         if relationship.relationship.target_id == 'nginx':
                             operation_unlink = 'cloudify.interfaces.relationship_lifecycle.unlink'
                             forkjoin_tasks_unlink.append(relationship.execute_source_operation(operation_unlink))
@@ -49,12 +44,12 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                             forkjoin_tasks_link.append(relationship.execute_target_operation(operation_link))
                     operation_task_link = forkjoin(*forkjoin_tasks_link)
 
-                sequence.add(
-                    send_event_starting_tasks[instance.id],
-                    operation_task_unlink,
-                    instance.send_event('Update task !!'),
-                    operation_task_link,
-                    send_event_done_tasks[instance.id])
+                    sequence.add(
+                        send_event_starting_tasks[instance.id],
+                        operation_task_unlink,
+                        instance.send_event('Update task !!'),
+                        operation_task_link,
+                        send_event_done_tasks[instance.id])
 
 
     return graph.execute()
