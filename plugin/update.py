@@ -2,11 +2,10 @@ from cloudify.decorators import workflow
 from cloudify.workflows import ctx
 
 @workflow
-def run_operation(operation, type_name, operation_kwargs, **kwargs):
+def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
     graph = ctx.graph_mode()
 
     for node in ctx.nodes:
-        if type_name in node.type_hierarchy:
             for instance in node.instances:
 
                 sequence = graph.sequence()
