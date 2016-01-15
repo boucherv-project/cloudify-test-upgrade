@@ -60,7 +60,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
     for node_task in tasks:
         for task in tasks[node_task]:
             if previous_task:
-                print task, previous_task
+                graph.add_dependency(task, previous_task)
             previous_task = task
 
     return graph.execute()
