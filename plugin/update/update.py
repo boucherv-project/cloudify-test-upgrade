@@ -10,6 +10,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
     send_event_starting_tasks = {}
     send_event_done_tasks = {}
     run_it = False
+    tasks = {}
 
     for node_type_update in nodes_type_update:
         for node in ctx.nodes:
@@ -20,6 +21,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
 
 
     for node_type_update in nodes_type_update:
+        tasks[node_type_update] = []
         for node in ctx.nodes:
             if node.type == node_type_update:
                 for instance in node.instances:
@@ -51,5 +53,13 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                         operation_task_link,
                         send_event_done_tasks[instance.id])
 
+                    tasks[node_type_update].append(sequence)
+
+    previous_task = None
+    for node_task in tasks:
+        for task in tasks[node_task]:
+            if previous_task:
+                graph.add_dependency(task, previous_task)
+            previous_task = task
 
     return graph.execute()
