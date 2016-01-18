@@ -16,9 +16,8 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
         for node in ctx.nodes:
             if node.type == node_type_update:
                 for instance in node.instances:
-                    #send_event_starting_tasks[instance.id] = instance.send_event('Starting to run operation')
-                    #send_event_done_tasks[instance.id] = instance.send_event('Done running operation')
-                    pass
+                    send_event_starting_tasks[instance.id] = instance.send_event('Starting to run operation')
+                    send_event_done_tasks[instance.id] = instance.send_event('Done running operation')
 
 
     for node_type_update in nodes_type_update:
@@ -49,11 +48,11 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                     operation_task_link = forkjoin(*forkjoin_tasks_link)
 
                     subgraph_sequence.add([
-                        #send_event_starting_tasks[instance.id],
+                        send_event_starting_tasks[instance.id],
                         operation_task_unlink,
                         instance.send_event('Update task !!'),
-                        operation_task_link
-                        #send_event_done_tasks[instance.id]])
+                        operation_task_link,
+                        send_event_done_tasks[instance.id]])
 
                     tasks[node_type_update].append(subgraph)
 

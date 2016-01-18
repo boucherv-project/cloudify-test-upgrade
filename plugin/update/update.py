@@ -53,7 +53,8 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                         operation_task_unlink,
                         instance.send_event('Update task !!'),
                         operation_task_link
-                        #send_event_done_tasks[instance.id]])
+                        #send_event_done_tasks[instance.id]
+                        ])
 
                     tasks[node_type_update].append(subgraph)
 
