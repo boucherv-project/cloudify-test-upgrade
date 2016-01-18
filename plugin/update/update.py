@@ -62,7 +62,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
             if previous_task:
                 graph.add_dependency(task, previous_task)
                 with open("/file_out.txt", "w") as f:
-                    pprint.pprint(tasks.items(), f)
+                    pprint.pprint(tasks[node_task], f)
             previous_task = task
 
     return graph.execute()
