@@ -47,7 +47,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                     sequence.add(
                         send_event_starting_tasks[instance.id],
                         operation_task_unlink,
-                        instance.send_event('Update task !!'),
+                        instance.execute_operation('cloudify.interfaces.lifecycle.update', kwargs=operation_kwargs),
                         operation_task_link,
                         send_event_done_tasks[instance.id])
 
