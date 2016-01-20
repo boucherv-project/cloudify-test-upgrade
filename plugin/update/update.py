@@ -52,10 +52,10 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                         send_event_done_tasks[instance.id])
 
                     if previous_task:
-                        graph.add_dependency(task, previous_task)
+                        graph.add_dependency(send_event_starting_tasks.get(instance.id), send_event_done_tasks.get(previous_task))
                         with open("/file_out.txt", "w") as f:
                             pprint.pprint(previous_task, f)
-                    previous_task = task
+                    previous_task = instance.id
 
 
     return graph.execute()
