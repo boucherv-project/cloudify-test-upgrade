@@ -19,6 +19,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
 
 
     for node_type_update in nodes_type_update:
+        previous_task = None
         for node in ctx.nodes:
             if node.type == node_type_update:
                 for instance in node.instances:
@@ -49,5 +50,12 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
                         instance.send_event('Update task !!'),
                         operation_task_link,
                         send_event_done_tasks[instance.id])
+
+                    if previous_task:
+                        graph.add_dependency(task, previous_task)
+                        with open("/file_out.txt", "w") as f:
+                            pprint.pprint(previous_task, f)
+                    previous_task = task
+
 
     return graph.execute()
