@@ -6,9 +6,13 @@ import pprint
 @workflow
 def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
     graph = ctx.graph_mode()
-
+    cfy_local = ctx.local()
     send_event_starting_tasks = {}
     send_event_done_tasks = {}
+
+    cfy_local.execute('scale', parameters={'node_id': 'client',
+                                                'delta': 1,
+                                                'scale_compute': False})
 
     for node_type_update in nodes_type_update:
         for node in ctx.nodes:
