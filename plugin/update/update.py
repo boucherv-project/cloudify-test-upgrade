@@ -9,7 +9,7 @@ def run_operation(operation, nodes_type_update, operation_kwargs, **kwargs):
     send_event_starting_tasks = {}
     send_event_done_tasks = {}
 
-    cfx.execute_task(task_name='scale', kwargs={'node_id': 'client',
+    ctx.execute_task(task_name='scale', kwargs={'node_id': 'client',
                                                 'delta': 1,
                                                 'scale_compute': False})
 
