@@ -7,7 +7,7 @@ description: >
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.3/types.yaml
 #  - http://www.getcloudify.org/spec/diamond-plugin/1.3/plugin.yaml
-  - plugin/plugin.yaml
+  - https://raw.githubusercontent.com/boucherv-orange/update-vnf/master/plugin.yaml
   - types/test.yaml
 
 inputs:
