@@ -46,6 +46,16 @@ node_templates:
       - type: client_connected_to_nginx
         target: nginx
 
+  client_2:
+    type: simple.nodes.client_2
+    instances:
+      deploy: 2
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: host
+      - type: client_connected_to_nginx
+        target: nginx
+
 
   host:
     type: cloudify.nodes.Compute

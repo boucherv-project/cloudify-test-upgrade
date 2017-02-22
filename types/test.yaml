@@ -13,6 +13,9 @@ node_types:
         update: scripts/update.sh
         start: scripts/start.sh
 
+  simple.nodes.client_2:
+    derived_from: cloudify.nodes.ApplicationModule
+
 relationships:
   client_connected_to_nginx:
     derived_from: cloudify.relationships.connected_to
