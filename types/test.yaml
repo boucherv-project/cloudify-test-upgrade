@@ -11,6 +11,7 @@ node_types:
     interfaces:
       cloudify.interfaces.lifecycle:
         update: scripts/update.sh
+        start: scripts/start.sh
 
 relationships:
   client_connected_to_nginx:
