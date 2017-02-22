@@ -15,6 +15,9 @@ node_types:
 
   simple.nodes.client_2:
     derived_from: cloudify.nodes.ApplicationModule
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        update: scripts/update.sh
 
 relationships:
   client_connected_to_nginx:
